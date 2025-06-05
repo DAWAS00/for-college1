@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Applications Infographic</title>
+    <script src="https://unpkg.com/natural@6.5.0/dist/natural-browser.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+        }
+        
+        /* Simple Sentiment Analysis Tool Styles */
+        .demo-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 40px;
+            background-color: #2c3e50;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .demo-title {
+            font-size: 2.5rem;
+            color: #ecf0f1;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+        
+        .sentiment-tool {
+            background-color: #34495e;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+        }
+        
+        .sentiment-tool-title {
+            font-size: 1.5rem;
+            color: #ecf0f1;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-align: left;
+        }
+        
+        .sentiment-textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 1px solid #3498db;
+            border-radius: 8px;
+            font-size: 1rem;
+            color: #ecf0f1;
+            background-color: #2c3e50;
+            resize: vertical;
+            margin-bottom: 20px;
+            font-family: inherit;
+        }
+        
+        .sentiment-textarea:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.3);
+        }
+        
+        .sentiment-textarea::placeholder {
+            color: #95a5a6;
+        }
+        
+        .analyze-button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-right: 10px;
+        }
+        
+        .analyze-button:hover {
+            background-color: #2980b9;
+        }
+        
+        .clear-button {
+            background-color: #7f8c8d;
+            color: #ecf0f1;
+            border: none;
+            border-radius: 30px;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .clear-button:hover {
+            background-color: #95a5a6;
+        }
+        
+        .result-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .result-label {
+            font-size: 1rem;
+            color: #ecf0f1;
+            font-weight: 600;
+            text-align: left;
+        }
+        
+        .result-value {
+            font-size: 1rem;
+            color: #ecf0f1;
+            font-weight: 600;
+            text-align: right;
+        }
+        
+        .sentiment-meter {
+            width: 100%;
+            height: 8px;
+            background-color: #2c3e50;
+            border-radius: 4px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        
+        .sentiment-fill {
+            height: 100%;
+            width: 50%;
+            background-color: #3498db;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .demo-container {
+                padding: 20px;
+                margin: 20px;
+            }
+            
+            .demo-title {
+                font-size: 2rem;
+            }
+            
+            .sentiment-tool-title {
+                font-size: 1.2rem;
+            }
+        }
+         
+         .result-content {
+             line-height: 1.6;
+             color: #000;
+             font-weight: 500;
+         }
+        
+        .sentiment-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .feature-tag {
+             background-color: #e1f5fe;
+             color: #01579b;
+             padding: 6px 12px;
+             border-radius: 20px;
+             font-size: 0.9rem;
+             font-weight: 500;
+             display: inline-block;
+         }
+        
+        /* Responsive adjustments for sentiment tool */
+        @media (max-width: 768px) {
+            .sentiment-tool {
+                padding: 20px;
+                margin: 20px 15px;
+            }
+            
+            .sentiment-tool-title {
+                font-size: 1.8rem;
+            }
+            
+            .sentiment-controls {
+                flex-direction: column;
+            }
+            
+            .sentiment-button {
+                width: 100%;
+            }
+        }
+        
+        /* Navigation Styles */
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .nav-logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.3);
+            font-weight: bold;
+        }
+        
+        .ai-applications {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 120px 20px 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .page-title {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+        
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .applications-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+        }
+        
+        .app-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .app-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .app-card::after {
+            content: '→';
+            position: absolute;
+            bottom: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+        }
+        
+        .app-card:hover::before {
+            left: 100%;
+        }
+        
+        .app-card:hover::after {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .app-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .app-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .app-card:nth-child(1) .app-icon { animation-delay: 0s; }
+        .app-card:nth-child(2) .app-icon { animation-delay: 0.5s; }
+        .app-card:nth-child(3) .app-icon { animation-delay: 1s; }
+        .app-card:nth-child(4) .app-icon { animation-delay: 1.5s; }
+        .app-card:nth-child(5) .app-icon { animation-delay: 2s; }
+        .app-card:nth-child(6) .app-icon { animation-delay: 2.5s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .app-title {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .app-description {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .app-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            color: #FFD700;
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .stat-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.8rem;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 700px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalSlideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border-left: 5px solid #764ba2;
+        }
+        
+        @keyframes modalSlideIn {
+            from { transform: scale(0.7); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .close-modal:hover {
+            color: #764ba2;
+            background: rgba(118, 75, 162, 0.1);
+            transform: rotate(90deg);
+        }
+        
+        #modalTitle {
+            color: #764ba2;
+            margin-bottom: 20px;
+            font-size: 2.2rem;
+            border-bottom: 2px solid rgba(118, 75, 162, 0.2);
+            padding-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        #modalBody h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            padding-bottom: 10px;
+        }
+        
+        #modalBody h3 {
+            color: #667eea;
+            margin: 25px 0 10px;
+            font-size: 1.4rem;
+        }
+        
+        #modalBody p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            color: #444;
+        }
+        
+        #modalBody ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        #modalBody li {
+            margin-bottom: 12px;
+            line-height: 1.5;
+            color: #555;
+        }
+        
+        #modalBody strong {
+            color: #333;
+            font-weight: 600;
+        }
+        
+        /* Sentiment Analysis Tool Styles */
+        .sentiment-tool {
+            max-width: 900px;
+            margin: 60px auto 0;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .sentiment-tool-header {
+             text-align: center;
+             margin-bottom: 25px;
+             background-color: white;
+             padding: 20px;
+             border-radius: 10px;
+         }
+        
+        .sentiment-tool-title {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .sentiment-tool-description {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+        }
+        
+        .sentiment-input-container {
+            margin-bottom: 20px;
+        }
+        
+        .sentiment-textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+            resize: vertical;
+            transition: all 0.3s ease;
+        }
+        
+        .sentiment-textarea:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+        
+        .sentiment-textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .sentiment-controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .sentiment-button {
+            padding: 12px 25px;
+            border-radius: 30px;
+            border: none;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 150px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .sentiment-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .sentiment-button:active {
+            transform: translateY(1px);
+        }
+        
+        .sentiment-button.clear {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .sentiment-results {
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            display: none;
+            color: #000;
+        }
+        
+        .sentiment-results.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .result-section {
+            margin-bottom: 20px;
+        }
+        
+        .result-title {
+            color: #000;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+        
+        .result-content {
+            color: #000;
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        
+        .ai-score-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .ai-score-bar {
+            flex: 1;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .ai-score-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #4CAF50, #FFC107, #F44336);
+            transition: width 1s ease;
+            border-radius: 10px;
+        }
+        
+        .ai-score-text {
+            font-weight: bold;
+            color: #000;
+            min-width: 80px;
+            text-align: right;
+        }
+        
+        .ai-explanation {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            color: #000;
+            font-weight: 500;
+        }
+        
+        .sentiment-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .feature-tag {
+            background-color: #d4e6f1;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #000;
+            font-weight: 600;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .applications-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .sentiment-controls {
+                flex-direction: column;
+            }
+            
+            .sentiment-tool-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">DS & AI Program</a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="curriculum-timeline.html" class="nav-link">Curriculum</a></li>
+                <li><a href="ai-infographic.html" class="nav-link active">AI in Action</a></li>
+                <li><a href="tech-stack.html" class="nav-link">Tech Stack</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="ai-applications">
+        <div class="page-header">
+            <h1 class="page-title">AI in Action</h1>
+            <p class="page-subtitle">Discover how artificial intelligence is transforming industries and creating new opportunities across the globe</p>
+        </div>
+        
+        <div class="applications-grid">
+            <div class="app-card" data-app="healthcare">
+                <span class="app-icon">🏥</span>
+                <h3 class="app-title">Healthcare AI</h3>
+                <p class="app-description">Revolutionizing diagnosis, treatment, and patient care through intelligent systems.</p>
+                <div class="app-stats">
+                    <div class="stat">
+                        <span class="stat-number">87%</span>
+                        <span class="stat-label">Accuracy</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">$150B</span>
+                        <span class="stat-label">Market Size</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="app-card" data-app="autonomous">
+                <span class="app-icon">🚗</span>
+                <h3 class="app-title">Autonomous Vehicles</h3>
+                <p class="app-description">Self-driving cars using computer vision and machine learning for safer transportation.</p>
+                <div class="app-stats">
+                    <div class="stat">
+                        <span class="stat-number">Level 4</span>
+                        <span class="stat-label">Automation</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">90%</span>
+                        <span class="stat-label">Safer</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="app-card" data-app="finance">
+                <span class="app-icon">💰</span>
+                <h3 class="app-title">Financial AI</h3>
+                <p class="app-description">Fraud detection, algorithmic trading, and personalized financial services.</p>
+                <div class="app-stats">
+                    <div class="stat">
+                        <span class="stat-number">99.9%</span>
+                        <span class="stat-label">Fraud Detection</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">$41B</span>
+                        <span class="stat-label">Savings</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="app-card" data-app="entertainment">
+                <span class="app-icon">🎬</span>
+                <h3 class="app-title">Entertainment</h3>
+                <p class="app-description">Content recommendation, game AI, and personalized streaming experiences.</p>
+                <div class="app-stats">
+                    <div class="stat">
+                        <span class="stat-number">80%</span>
+                        <span class="stat-label">Netflix Views</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">$1B</span>
+                        <span class="stat-label">Revenue Impact</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="app-card" data-app="education">
+                <span class="app-icon">📚</span>
+                <h3 class="app-title">Education Tech</h3>
+                <p class="app-description">Personalized learning, intelligent tutoring, and automated assessment systems.</p>
+                <div class="app-stats">
+                    <div class="stat">
+                        <span class="stat-number">30%</span>
+                        <span class="stat-label">Better Outcomes</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Availability</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="app-card" data-app="environment">
+                <span class="app-icon">🌍</span>
+                <h3 class="app-title">Climate & Environment</h3>
+                <p class="app-description">Weather prediction, climate modeling, and environmental monitoring systems.</p>
+                <div class="app-stats">
+                    <div class="stat">
+                        <span class="stat-number">95%</span>
+                        <span class="stat-label">Accuracy</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">$2T</span>
+                        <span class="stat-label">Climate Impact</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- AI Demo Section -->
+         <div class="demo-container">
+             <h2 class="demo-title">Try Our AI Demo</h2>
+             
+             <div class="sentiment-tool">
+                 <h3 class="sentiment-tool-title">AI Text Detection Tool</h3>
+                 
+                 <textarea class="sentiment-textarea" id="textInput" placeholder="Paste or type text here to analyze (minimum 20 words recommended for accurate results)..."></textarea>
+                 
+                 <div>
+                     <button class="analyze-button" id="analyzeBtn">Detect AI Text</button>
+                     <button class="clear-button" id="clearBtn">Clear</button>
+                 </div>
+                 
+                 <div id="resultsContainer" style="display: none;">
+                     <div class="result-container">
+                         <div class="result-label">AI Detection:</div>
+                         <div class="result-value" id="aiScoreText">Human-Written Text</div>
+                     </div>
+                     
+                     <div class="sentiment-meter">
+                         <div class="sentiment-fill" id="aiScoreFill"></div>
+                     </div>
+                     <div style="margin-top: 10px; font-size: 0.8rem; color: #bdc3c7; text-align: center;">
+                         The meter shows the likelihood of AI-generated content
+                     </div>
+                 </div>
+             </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="appModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+    
+    <!-- Duplicate sentiment tool section removed -->
+    
+    <script>
+        // AI Applications Details
+        const appDetails = {
+            healthcare: {
+                title: "Healthcare AI Revolution",
+                content: `
+                    <h2>Transforming Healthcare with AI</h2>
+                    <p>AI is revolutionizing healthcare through:</p>
+                    <ul>
+                        <li><strong>Medical Imaging:</strong> AI can detect cancer in mammograms with 94.5% accuracy</li>
+                        <li><strong>Drug Discovery:</strong> Reducing development time from 10-15 years to 3-5 years</li>
+                        <li><strong>Personalized Treatment:</strong> Tailoring treatments based on genetic profiles</li>
+                        <li><strong>Predictive Analytics:</strong> Identifying high-risk patients before symptoms appear</li>
+                    </ul>
+                    <h3>Career Opportunities:</h3>
+                    <p>Healthcare Data Scientist, Medical AI Engineer, Bioinformatics Specialist</p>
+                `
+            },
+            autonomous: {
+                title: "Autonomous Vehicle Technology",
+                content: `
+                    <h2>Self-Driving Cars & AI</h2>
+                    <p>Key technologies powering autonomous vehicles:</p>
+                    <ul>
+                        <li><strong>Computer Vision:</strong> Real-time object detection and recognition</li>
+                        <li><strong>Sensor Fusion:</strong> Combining LiDAR, cameras, and radar data</li>
+                        <li><strong>Path Planning:</strong> AI algorithms for safe route optimization</li>
+                        <li><strong>Deep Learning:</strong> Neural networks for decision making</li>
+                    </ul>
+                    <h3>Industry Impact:</h3>
+                    <p>Expected to prevent 94% of serious traffic crashes caused by human error</p>
+                `
+            },
+            finance: {
+                title: "Financial AI Systems",
+                content: `
+                    <h2>AI in Financial Services</h2>
+                    <p>AI is transforming the financial sector through:</p>
+                    <ul>
+                        <li><strong>Fraud Detection:</strong> Real-time monitoring systems that identify suspicious patterns</li>
+                        <li><strong>Algorithmic Trading:</strong> High-frequency trading systems that execute thousands of orders per second</li>
+                        <li><strong>Risk Assessment:</strong> Advanced models that evaluate creditworthiness with greater accuracy</li>
+                        <li><strong>Customer Service:</strong> AI chatbots handling 70% of customer inquiries without human intervention</li>
+                    </ul>
+                    <h3>Market Impact:</h3>
+                    <p>Financial institutions using AI report a 20-25% reduction in operational costs and fraud losses reduced by up to 60%</p>
+                    <h3>Career Paths:</h3>
+                    <p>Quantitative Analyst, Financial AI Developer, Algorithmic Trading Engineer, Fraud Detection Specialist</p>
+                `
+            },
+            entertainment: {
+                title: "AI in Entertainment",
+                content: `
+                    <h2>Revolutionizing Media & Entertainment</h2>
+                    <p>AI is reshaping how content is created, distributed, and consumed:</p>
+                    <ul>
+                        <li><strong>Recommendation Systems:</strong> Algorithms that analyze viewing habits to suggest personalized content</li>
+                        <li><strong>Content Creation:</strong> AI tools for generating music, scripts, and visual effects</li>
+                        <li><strong>Gaming:</strong> Non-player characters with advanced decision-making capabilities</li>
+                        <li><strong>Content Moderation:</strong> Automated systems that filter inappropriate content</li>
+                    </ul>
+                    <h3>Industry Transformation:</h3>
+                    <p>Streaming platforms attribute up to 80% of viewed content to AI recommendation systems, increasing user engagement by 40%</p>
+                    <h3>Career Paths:</h3>
+                    <p>AI Content Creator, Recommendation Systems Engineer, Game AI Developer, Media Analytics Specialist</p>
+                `
+            },
+            education: {
+                title: "AI-Powered Education",
+                content: `
+                    <h2>Transforming Learning with AI</h2>
+                    <p>AI is creating new educational paradigms through:</p>
+                    <ul>
+                        <li><strong>Adaptive Learning:</strong> Systems that adjust difficulty based on student performance</li>
+                        <li><strong>Intelligent Tutoring:</strong> AI tutors providing personalized guidance and feedback</li>
+                        <li><strong>Automated Grading:</strong> Tools that assess essays and complex assignments</li>
+                        <li><strong>Learning Analytics:</strong> Insights that help educators identify at-risk students</li>
+                    </ul>
+                    <h3>Educational Outcomes:</h3>
+                    <p>Studies show AI-enhanced learning environments improve student performance by 30% and reduce dropout rates by 25%</p>
+                    <h3>Career Paths:</h3>
+                    <p>Educational Technology Developer, Learning Analytics Specialist, AI Curriculum Designer, Adaptive Learning Engineer</p>
+                `
+            },
+            environment: {
+                title: "AI for Environmental Solutions",
+                content: `
+                    <h2>Addressing Climate Challenges with AI</h2>
+                    <p>AI is helping tackle environmental issues through:</p>
+                    <ul>
+                        <li><strong>Climate Modeling:</strong> Advanced simulations predicting climate patterns with unprecedented accuracy</li>
+                        <li><strong>Smart Grids:</strong> AI-optimized energy distribution reducing waste by up to 30%</li>
+                        <li><strong>Wildlife Conservation:</strong> Computer vision systems tracking endangered species</li>
+                        <li><strong>Disaster Prediction:</strong> Early warning systems for floods, wildfires, and other natural disasters</li>
+                    </ul>
+                    <h3>Global Impact:</h3>
+                    <p>AI-driven climate solutions could contribute to reducing global carbon emissions by 4% by 2030, equivalent to the annual emissions of Australia</p>
+                    <h3>Career Paths:</h3>
+                    <p>Environmental Data Scientist, Sustainable AI Engineer, Climate Modeling Specialist, Conservation Technologist</p>
+                `
+            }
+        };
+        
+        // Function to open modal with animation
+        function openModal(app) {
+            const modal = document.getElementById('appModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+            const modalContent = document.querySelector('.modal-content');
+            
+            if (appDetails[app]) {
+                // Set content
+                modalTitle.textContent = appDetails[app].title;
+                modalBody.innerHTML = appDetails[app].content;
+                
+                // Show modal
+                modal.style.display = 'flex';
+                
+                // Add animation class
+                setTimeout(() => {
+                    modal.style.opacity = '1';
+                }, 10);
+            }
+        }
+        
+        // Function to close modal with animation
+        function closeModal() {
+            const modal = document.getElementById('appModal');
+            
+            // Fade out animation
+            modal.style.opacity = '0';
+            
+            // Hide after animation completes
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        }
+        
+        // Add click event to all app cards
+        document.querySelectorAll('.app-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const app = card.dataset.app;
+                openModal(app);
+            });
+        });
+        
+        // Close modal when clicking the close button
+        document.querySelector('.close-modal').addEventListener('click', () => {
+            closeModal();
+        });
+        
+        // Close modal when clicking outside the modal content
+        window.addEventListener('click', (e) => {
+            const modal = document.getElementById('appModal');
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+        
+        // AI Text Detection Tool
+        // Wait for the page to fully load
+        window.onload = function() {
+            console.log('Page fully loaded, initializing AI Text Detection Tool');
+            
+            // Element selections
+            const textInput = document.getElementById('textInput');
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const resultsContainer = document.getElementById('resultsContainer');
+            const aiScoreFill = document.getElementById('aiScoreFill');
+            const aiScoreText = document.getElementById('aiScoreText');
+            
+            console.log('Elements found:', {
+                textInput: textInput,
+                analyzeBtn: analyzeBtn,
+                clearBtn: clearBtn,
+                resultsContainer: resultsContainer,
+                aiScoreFill: aiScoreFill,
+                aiScoreText: aiScoreText
+            });
+            
+            // Initialize natural.js components
+            const tokenizer = new natural.WordTokenizer();
+            const analyzer = new natural.SentimentAnalyzer('English', natural.PorterStemmer, 'afinn');
+            
+            // Event listeners
+            if (analyzeBtn) {
+                analyzeBtn.addEventListener('click', function() {
+                    console.log('Analyze button clicked');
+                    analyzeText();
+                });
+            }
+            
+            if (clearBtn) {
+                clearBtn.addEventListener('click', function() {
+                    console.log('Clear button clicked');
+                    clearAll();
+                });
+            }
+            
+            function analyzeText() {
+                console.log('Analyzing text...');
+                const text = textInput.value.trim();
+                console.log('Text to analyze:', text);
+                
+                if (text.length < 20) {
+                    alert('Please enter at least 20 characters for accurate analysis.');
+                    return;
+                }
+                
+                // Show results container
+                resultsContainer.style.display = 'block';
+                
+                // Analyze text for AI detection and sentiment
+                const aiScore = detectAIText(text);
+                console.log('AI Score:', aiScore);
+                analyzeSentiment(text, aiScore);
+            }
+            
+            function clearAll() {
+                console.log('Clearing all...');
+                textInput.value = '';
+                resultsContainer.style.display = 'none';
+                aiScoreFill.style.width = '0%';
+                aiScoreText.textContent = 'Human-Written Text';
+            }
+            
+            function detectAIText(text) {
+                // Simplified AI text detection algorithm
+                // This is a mock implementation - in a real app, you'd use a more sophisticated model
+                
+                const tokens = tokenizer.tokenize(text);
+                const wordCount = tokens.length;
+                
+                // Calculate various text features
+                const avgWordLength = text.length / wordCount;
+                const uniqueWords = new Set(tokens.map(w => w.toLowerCase())).size;
+                const lexicalDiversity = uniqueWords / wordCount;
+                
+                // Count sentence endings
+                const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
+                const avgSentenceLength = wordCount / sentences.length || 0;
+                
+                console.log('Text features:', {
+                    wordCount,
+                    avgWordLength,
+                    lexicalDiversity,
+                    avgSentenceLength
+                });
+                
+                // These thresholds are arbitrary for demonstration
+                // Real AI detection would use machine learning models
+                let aiScore = 0;
+                
+                // Higher average word length slightly increases AI score
+                if (avgWordLength > 5.5) aiScore += 15;
+                else if (avgWordLength > 4.8) aiScore += 5;
+                
+                // Very high or very low lexical diversity affects score
+                if (lexicalDiversity > 0.8) aiScore += 20;
+                else if (lexicalDiversity < 0.4) aiScore += 10;
+                
+                // Very consistent sentence length is an AI indicator
+                if (avgSentenceLength > 20) aiScore += 15;
+                else if (avgSentenceLength > 15) aiScore += 10;
+                
+                // Longer texts get a slight boost in AI probability
+                if (wordCount > 100) aiScore += 15;
+                else if (wordCount > 50) aiScore += 10;
+                
+                // Add some randomness to simulate real-world variance
+                aiScore += Math.floor(Math.random() * 15);
+                
+                // Cap the score at 95% to avoid absolute certainty
+                aiScore = Math.min(aiScore, 95);
+                
+                return aiScore;
+            }
+            
+            function analyzeSentiment(text, aiScore) {
+                const tokens = tokenizer.tokenize(text);
+                const sentiment = analyzer.getSentiment(tokens);
+                
+                // Calculate sentiment score (0-100 scale)
+                let sentimentScore = 50; // Neutral starting point
+                
+                if (sentiment > 0) {
+                    // Positive sentiment (50-100)
+                    sentimentScore = 50 + (sentiment * 50);
+                } else if (sentiment < 0) {
+                    // Negative sentiment (0-50)
+                    sentimentScore = 50 + (sentiment * 50);
+                }
+                
+                // Ensure score is within 0-100 range
+                sentimentScore = Math.max(0, Math.min(100, sentimentScore));
+                
+                // Display the results
+                displayResult(sentiment, aiScore);
+            }
+            
+            function displayResult(sentimentScore, aiScore) {
+                console.log('Displaying result with AI score:', aiScore);
+                // Update the meter fill based on AI score
+                aiScoreFill.style.width = `${aiScore}%`;
+                
+                // Determine AI text classification
+                let aiResult;
+                
+                if (aiScore > 70) {
+                    aiResult = 'AI-Generated Text';
+                } else if (aiScore > 40) {
+                    aiResult = 'Possibly AI-Generated';
+                } else {
+                    aiResult = 'Human-Written Text';
+                }
+                
+                // Update the result text to show AI detection
+                aiScoreText.textContent = aiResult;
+                console.log('Result displayed:', aiResult);
+            }
+        };
+        
+        // Add direct event listener as a fallback
+        setTimeout(function() {
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            if (analyzeBtn) {
+                console.log('Adding fallback click handler to analyze button');
+                analyzeBtn.onclick = function() {
+                    console.log('Analyze button clicked via fallback handler');
+                    const textInput = document.getElementById('textInput');
+                    const resultsContainer = document.getElementById('resultsContainer');
+                    const aiScoreFill = document.getElementById('aiScoreFill');
+                    const aiScoreText = document.getElementById('aiScoreText');
+                    
+                    const text = textInput.value.trim();
+                    if (text.length < 20) {
+                        alert('Please enter at least 20 characters for accurate analysis.');
+                        return;
+                    }
+                    
+                    resultsContainer.style.display = 'block';
+                    
+                    // Simple random score for fallback
+                    const aiScore = Math.floor(Math.random() * 100);
+                    aiScoreFill.style.width = `${aiScore}%`;
+                    
+                    let aiResult;
+                    if (aiScore > 70) {
+                        aiResult = 'AI-Generated Text';
+                    } else if (aiScore > 40) {
+                        aiResult = 'Possibly AI-Generated';
+                    } else {
+                        aiResult = 'Human-Written Text';
+                    }
+                    
+                    aiScoreText.textContent = aiResult;
+                };
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

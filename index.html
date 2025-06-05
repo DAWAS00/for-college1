@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Science & AI Program - Home</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9ff;
+            overflow-x: hidden;
+        }
+        
+        /* Navigation Styles */
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .nav-logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.3);
+            font-weight: bold;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding-top: 80px;
+        }
+        
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-title {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 1s ease 0.2s;
+            animation-fill-mode: both;
+        }
+        
+        .hero-cta {
+            display: inline-block;
+            background: white;
+            color: #764ba2;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: bold;
+            text-decoration: none;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.4s;
+            animation-fill-mode: both;
+        }
+        
+        .hero-cta:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .floating-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 15s infinite linear;
+        }
+        
+        /* Program Overview Section */
+        .program-overview {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .feature-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        .feature-description {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Stats Section */
+        .stats-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 80px 20px;
+            color: white;
+            text-align: center;
+        }
+        
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.5s ease;
+        }
+        
+        .stat-card.animate {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            background: white;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .stat-label {
+            font-size: 1.2rem;
+        }
+        
+        /* Explore Section */
+        .explore-section {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .explore-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .explore-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .explore-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .explore-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        
+        .explore-image {
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+        
+        .explore-content {
+            padding: 20px;
+        }
+        
+        .explore-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        .explore-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .explore-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .explore-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 80px 20px;
+            text-align: center;
+            color: white;
+        }
+        
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-description {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #764ba2;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: bold;
+            text-decoration: none;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        /* Footer */
+        .footer {
+            background: #333;
+            padding: 50px 20px;
+            color: white;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-description {
+            opacity: 0.7;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        .footer-title {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-link {
+            margin-bottom: 10px;
+        }
+        
+        .footer-link a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-link a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding: 20px;
+            background: #222;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+            100% {
+                transform: translateY(0) rotate(360deg);
+            }
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .features-grid,
+            .stats-grid,
+            .explore-grid,
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">DS & AI Program</a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link active">Home</a></li>
+                <li><a href="curriculum-timeline.html" class="nav-link">Curriculum</a></li>
+                <li><a href="ai-infographic.html" class="nav-link">AI in Action</a></li>
+                <li><a href="tech-stack.html" class="nav-link">Tech Stack</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <section class="hero">
+        <div class="floating-shapes">
+            <div class="shape" style="width: 80px; height: 80px; top: 20%; left: 10%; animation-duration: 15s;"></div>
+            <div class="shape" style="width: 150px; height: 150px; top: 60%; left: 70%; animation-duration: 25s;"></div>
+            <div class="shape" style="width: 60px; height: 60px; top: 10%; left: 60%; animation-duration: 20s;"></div>
+            <div class="shape" style="width: 120px; height: 120px; top: 40%; left: 30%; animation-duration: 18s;"></div>
+            <div class="shape" style="width: 100px; height: 100px; top: 80%; left: 20%; animation-duration: 22s;"></div>
+        </div>
+        
+        <div class="hero-content">
+            <h1 class="hero-title">Shape the Future with Data Science & AI</h1>
+            <p class="hero-subtitle">Embark on a transformative educational journey that prepares you for the most in-demand careers of tomorrow. Learn to harness the power of data and artificial intelligence to solve real-world problems.</p>
+            <a href="#explore" class="hero-cta">Explore the Program</a>
+        </div>
+    </section>
+    
+    <section class="program-overview">
+        <h2 class="section-title">Program Overview</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto; color: #666; line-height: 1.6;">Our comprehensive Data Science and Artificial Intelligence program combines rigorous academic training with hands-on practical experience, preparing you for leadership in the digital age.</p>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🧠</div>
+                <h3 class="feature-title">Cutting-Edge Curriculum</h3>
+                <p class="feature-description">Learn from a curriculum designed in collaboration with industry leaders, covering the latest advancements in machine learning, deep learning, and data analytics.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">👨‍💻</div>
+                <h3 class="feature-title">Hands-On Projects</h3>
+                <p class="feature-description">Apply your knowledge to real-world problems through industry-sponsored projects, hackathons, and research opportunities.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🌐</div>
+                <h3 class="feature-title">Global Perspective</h3>
+                <p class="feature-description">Gain insights into how AI and data science are transforming industries worldwide, with case studies from diverse sectors and regions.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🔬</div>
+                <h3 class="feature-title">Research Opportunities</h3>
+                <p class="feature-description">Collaborate with faculty on cutting-edge research projects, with opportunities to publish and present at international conferences.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🤝</div>
+                <h3 class="feature-title">Industry Connections</h3>
+                <p class="feature-description">Network with industry professionals through guest lectures, internships, and our extensive alumni network in tech companies worldwide.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🚀</div>
+                <h3 class="feature-title">Career Support</h3>
+                <p class="feature-description">Receive personalized career guidance, resume building, interview preparation, and job placement assistance throughout your academic journey.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="stats-section">
+        <div class="stats-container">
+            <h2 class="section-title" style="color: white;">Program Impact</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Employment Rate</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number">$120K+</div>
+                    <div class="stat-label">Average Starting Salary</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Industry Partners</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number">200+</div>
+                    <div class="stat-label">Research Publications</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="explore-section" id="explore">
+        <h2 class="section-title">Explore the Program</h2>
+        
+        <div class="explore-grid">
+            <div class="explore-card">
+                <div class="explore-image">📚</div>
+                <div class="explore-content">
+                    <h3 class="explore-title">Curriculum Journey</h3>
+                    <p class="explore-description">Discover our comprehensive 4-year curriculum designed to transform you into a Data Science and AI expert.</p>
+                    <a href="curriculum-timeline.html" class="explore-link">View Curriculum</a>
+                </div>
+            </div>
+            
+            <div class="explore-card">
+                <div class="explore-image">🌍</div>
+                <div class="explore-content">
+                    <h3 class="explore-title">AI in Action</h3>
+                    <p class="explore-description">Explore how AI is transforming industries and creating new opportunities across the globe.</p>
+                    <a href="ai-infographic.html" class="explore-link">See Applications</a>
+                </div>
+            </div>
+            
+            <div class="explore-card">
+                <div class="explore-image">⚙️</div>
+                <div class="explore-content">
+                    <h3 class="explore-title">Tech Stack</h3>
+                    <p class="explore-description">Master the cutting-edge tools and technologies that power modern data science and artificial intelligence.</p>
+                    <a href="tech-stack.html" class="explore-link">Explore Technologies</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2 class="cta-title">Ready to Shape the Future?</h2>
+            <p class="cta-description">Join our Data Science and AI program and become part of the next generation of innovators and problem-solvers.</p>
+            <a href="#" class="cta-button">Apply Now</a>
+        </div>
+    </section>
+    
+    <footer class="footer">
+        <div class="footer-container">
+            <div>
+                <div class="footer-logo">DS & AI Program</div>
+                <p class="footer-description">Preparing the next generation of data scientists and AI specialists to transform the world through innovation and ethical technology.</p>
+                <div class="footer-social">
+                    <div class="social-icon">f</div>
+                    <div class="social-icon">in</div>
+                    <div class="social-icon">t</div>
+                    <div class="social-icon">ig</div>
+                </div>
+            </div>
+            
+            <div>
+                <h3 class="footer-title">Program</h3>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="index.html">Home</a></li>
+                    <li class="footer-link"><a href="curriculum-timeline.html">Curriculum</a></li>
+                    <li class="footer-link"><a href="ai-infographic.html">AI in Action</a></li>
+                    <li class="footer-link"><a href="tech-stack.html">Tech Stack</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3 class="footer-title">Resources</h3>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="#">Research</a></li>
+                    <li class="footer-link"><a href="#">Publications</a></li>
+                    <li class="footer-link"><a href="#">Projects</a></li>
+                    <li class="footer-link"><a href="#">Events</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3 class="footer-title">Contact</h3>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="#">Admissions</a></li>
+                    <li class="footer-link"><a href="#">Faculty</a></li>
+                    <li class="footer-link"><a href="#">Support</a></li>
+                    <li class="footer-link"><a href="#">Visit Campus</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    
+    <div class="copyright">
+        © 2023 Data Science & AI Program. All rights reserved.
+    </div>
+    
+    <script>
+        // Animate elements when they come into view
+        function animateOnScroll() {
+            const featureCards = document.querySelectorAll('.feature-card');
+            const statCards = document.querySelectorAll('.stat-card');
+            const exploreCards = document.querySelectorAll('.explore-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            featureCards.forEach(card => observer.observe(card));
+            statCards.forEach(card => observer.observe(card));
+            exploreCards.forEach(card => observer.observe(card));
+        }
+        
+        // Generate random floating shapes
+        function generateShapes() {
+            const floatingShapes = document.querySelector('.floating-shapes');
+            const shapeCount = 10;
+            
+            for (let i = 0; i < shapeCount; i++) {
+                const shape = document.createElement('div');
+                shape.classList.add('shape');
+                
+                const size = Math.random() * 100 + 50;
+                const top = Math.random() * 100;
+                const left = Math.random() * 100;
+                const duration = Math.random() * 20 + 10;
+                
+                shape.style.width = `${size}px`;
+                shape.style.height = `${size}px`;
+                shape.style.top = `${top}%`;
+                shape.style.left = `${left}%`;
+                shape.style.animationDuration = `${duration}s`;
+                
+                floatingShapes.appendChild(shape);
+            }
+        }
+        
+        // Initialize animations when page loads
+        window.addEventListener('load', () => {
+            animateOnScroll();
+            generateShapes();
+        });
+    </script>
+</body>
+</html>

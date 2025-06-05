@@ -1,0 +1,2089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Stack - Data Science & AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(90deg, rgba(103,126,234,0.3), rgba(103,126,234,0.7), rgba(103,126,234,0.3));
+            --text-color: white;
+            --bg-color: #0a0a0a;
+            --panel-bg: rgba(255, 255, 255, 0.1);
+            --panel-hover: rgba(255, 255, 255, 0.15);
+            --border-color: rgba(255, 255, 255, 0.2);
+            --highlight-color: #4fd1c5;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --skill-color: #ff4757;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        /* Navigation Styles */
+        .navbar {
+            background: var(--primary-gradient);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px var(--shadow-color);
+            transition: background 0.3s ease;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .nav-logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.3);
+            font-weight: bold;
+        }
+        
+        .dark-mode-toggle {
+            background: transparent;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-mode-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        /* Light Mode Styles */
+        body.light-mode {
+            --bg-color: #f5f7fa;
+            --text-color: #333;
+            --panel-bg: rgba(0, 0, 0, 0.05);
+            --panel-hover: rgba(0, 0, 0, 0.1);
+            --border-color: rgba(0, 0, 0, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --highlight-color: #4a6fa5;
+        }
+        
+        body.light-mode .tech-constellation {
+            background: #f5f7fa;
+        }
+        
+        body.light-mode .page-title,
+        body.light-mode .page-subtitle,
+        body.light-mode .section-title,
+        body.light-mode .learning-step-title,
+        body.light-mode .learning-step-description,
+        body.light-mode .tech-info-title,
+        body.light-mode .tech-info-description,
+        body.light-mode .tech-salary-title,
+        body.light-mode .footer-title,
+        body.light-mode .footer-text {
+            color: #333;
+        }
+        
+        body.light-mode .search-box {
+            background: rgba(0, 0, 0, 0.05);
+            border-color: rgba(0, 0, 0, 0.1);
+            color: #333;
+        }
+        
+        body.light-mode .filter-btn {
+            background: rgba(0, 0, 0, 0.05);
+            color: #333;
+        }
+        
+        body.light-mode .tech-info {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        body.light-mode .tech-info-title,
+        body.light-mode .tech-info-description,
+        body.light-mode .tech-feature,
+        body.light-mode .tech-info p,
+        body.light-mode .career-title,
+        body.light-mode .career-description {
+            color: #333;
+        }
+        
+        body.light-mode .tech-info-header {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        body.light-mode .resource-link {
+            background: rgba(103, 126, 234, 0.2);
+            color: #333;
+        }
+        
+        body.light-mode .resource-link:hover {
+            background: rgba(103, 126, 234, 0.4);
+        }
+        
+        body.light-mode .tech-salary {
+            background: rgba(103, 126, 234, 0.1);
+            color: #333;
+        }
+        
+        body.light-mode .career-path {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        body.light-mode .career-path:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        body.light-mode .tech-info::before {
+            border-bottom: 10px solid rgba(255, 255, 255, 0.9);
+        }
+        
+        body.light-mode .tech-skill-meter {
+            background: rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        body.light-mode .tech-skill-fill {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+        
+        body.light-mode .connection-line {
+            background: linear-gradient(90deg, rgba(0,0,0,0.1), rgba(0,0,0,0.3), rgba(0,0,0,0.1));
+        }
+        
+        body.light-mode .learning-path-section {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        body.light-mode .learning-step {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        body.light-mode .step-content {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        body.light-mode .step-title,
+        body.light-mode .step-description {
+            color: #333;
+        }
+        
+        body.light-mode .step-tech {
+            background: rgba(103, 126, 234, 0.2);
+            color: #333;
+            border: 1px solid rgba(103, 126, 234, 0.3);
+        }
+        
+        body.light-mode .step-tech i {
+            color: #667eea;
+        }
+        
+        body.light-mode .step-number {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            box-shadow: 0 3px 10px rgba(103, 126, 234, 0.3);
+        }
+        
+        body.light-mode .path-line {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.3));
+        }
+        
+        body.light-mode .section-title {
+            color: #333;
+            text-shadow: 1px 1px 2px rgba(103, 126, 234, 0.2);
+        }
+        
+        body.light-mode .connection-line.active {
+            background: var(--secondary-gradient);
+        }
+        
+        body.light-mode .particle {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        
+        body.light-mode .footer {
+            background: linear-gradient(135deg, #e0e5f0 0%, #d0d5e0 100%);
+            color: #333;
+        }
+        
+        body.light-mode .social-link {
+            background: rgba(0, 0, 0, 0.05);
+            color: #333;
+        }
+        
+        body.light-mode .footer-bottom {
+            background: rgba(0, 0, 0, 0.05);
+            color: #333;
+        }
+        
+        .tech-constellation {
+            background: var(--bg-color);
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 80px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 30px;
+            z-index: 10;
+            position: relative;
+            animation: fadeInDown 1s ease-out;
+        }
+        
+        .page-title {
+            font-size: 3rem;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--primary-gradient);
+            border-radius: 3px;
+        }
+        
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Search and Filter Controls */
+        .tech-controls {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 800px;
+            z-index: 10;
+        }
+        
+        .search-box {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            padding: 12px 20px 12px 45px;
+            color: var(--text-color);
+            width: 300px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            position: relative;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .search-box:focus {
+            background: var(--panel-hover);
+            border-color: var(--highlight-color);
+            box-shadow: 0 0 15px rgba(79, 209, 197, 0.2);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-color);
+            opacity: 0.6;
+            z-index: 11;
+            pointer-events: none;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            margin-left: 15px;
+        }
+        
+        .filter-btn {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            color: var(--text-color);
+            padding: 8px 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .filter-btn:hover {
+            background: var(--panel-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px var(--shadow-color);
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, rgba(103, 126, 234, 0.7), rgba(118, 75, 162, 0.7));
+            border-color: transparent;
+            color: white;
+            font-weight: 500;
+        }
+        
+        .constellation-container {
+            position: relative;
+            width: 800px;
+            height: 600px;
+            margin-bottom: 30px;
+        }
+        
+        .tech-node {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s ease, border-color 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            z-index: 5;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        body.light-mode .tech-node {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tech-node.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .tech-node:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 30px var(--highlight-color);
+            z-index: 10;
+            border-color: var(--highlight-color);
+        }
+        
+        .tech-node.active {
+            transform: scale(1.3);
+            box-shadow: 0 0 40px var(--highlight-color);
+            z-index: 20;
+            animation: pulse 2s infinite alternate;
+        }
+        
+        .tech-icon {
+            font-size: 2rem;
+            color: white;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        
+        body.light-mode .tech-icon {
+            color: inherit;
+        }
+        
+        .tech-node:hover .tech-icon {
+            transform: rotate(10deg);
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 20px var(--highlight-color);
+            }
+            100% {
+                box-shadow: 0 0 40px var(--highlight-color), 0 0 60px rgba(79, 209, 197, 0.3);
+            }
+        }
+        
+        /* Skill Level Indicator */
+        .skill-level {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        
+        .skill-level-1 { 
+            border-top-color: var(--skill-color); 
+            transform: rotate(-45deg);
+        }
+        
+        .skill-level-2 { 
+            border-top-color: var(--skill-color); 
+            border-right-color: var(--skill-color); 
+            transform: rotate(-45deg);
+        }
+        
+        .skill-level-3 { 
+            border-top-color: var(--skill-color); 
+            border-right-color: var(--skill-color); 
+            border-bottom-color: var(--skill-color); 
+            transform: rotate(-45deg);
+        }
+        
+        .skill-level-4 { 
+            border-color: var(--skill-color); 
+        }
+        
+        .skill-level-5 { 
+            border-color: var(--skill-color); 
+            box-shadow: 0 0 15px var(--skill-color); 
+            animation: skillPulse 2s infinite alternate;
+        }
+        
+        @keyframes skillPulse {
+            0% {
+                box-shadow: 0 0 5px var(--skill-color);
+            }
+            100% {
+                box-shadow: 0 0 15px var(--skill-color);
+            }
+        }
+        
+        .tech-node:hover .skill-level {
+            opacity: 0.9;
+            transform: scale(1.1) rotate(-45deg);
+        }
+        
+        .connection-line {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(255,255,255,0.05), rgba(255,255,255,0.2), rgba(255,255,255,0.05));
+            transform-origin: left center;
+            opacity: 0;
+            transition: all 0.5s ease;
+            z-index: 1;
+        }
+        
+        .connection-line.active {
+            background: var(--secondary-gradient);
+            opacity: 1;
+            height: 3px;
+            box-shadow: 0 0 15px rgba(103,126,234,0.5);
+            animation: connectionFlow 3s linear infinite;
+        }
+        
+        @keyframes connectionPulse {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.6; }
+        }
+        
+        @keyframes connectionFlow {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+        
+        .python { background: linear-gradient(135deg, #3776ab, #ffd43b); top: 50px; left: 100px; }
+        .tensorflow { background: linear-gradient(135deg, #ff6f00, #ff8f00); top: 150px; left: 300px; }
+        .pytorch { background: linear-gradient(135deg, #ee4c2c, #ff6b35); top: 100px; left: 500px; }
+        .jupyter { background: linear-gradient(135deg, #f37626, #f37626); top: 300px; left: 50px; }
+        .pandas { background: linear-gradient(135deg, #150458, #2e8b57); top: 400px; left: 200px; }
+        .scikit { background: linear-gradient(135deg, #f7931e, #3499cd); top: 350px; left: 400px; }
+        .docker { background: linear-gradient(135deg, #2496ed, #0db7ed); top: 500px; left: 300px; }
+        .aws { background: linear-gradient(135deg, #ff9900, #232f3e); top: 450px; left: 600px; }
+        
+        /* Tech Info Panel */
+        .tech-info {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--panel-bg);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 15px;
+            color: var(--text-color);
+            text-align: left;
+            width: 500px;
+            max-width: 90%;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 30;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            border: 1px solid var(--border-color);
+            pointer-events: none;
+            visibility: hidden;
+        }
+        
+        .tech-info.active {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+            visibility: visible;
+        }
+        
+        .tech-info::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 10px solid var(--panel-bg);
+        }
+        
+        .tech-info-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 10px;
+        }
+        
+        .tech-info-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .tech-info-title {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+        
+        .tech-info-content {
+            margin-bottom: 15px;
+        }
+        
+        .tech-info-description {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .tech-skill-meter {
+            background: rgba(255, 255, 255, 0.1);
+            height: 8px;
+            border-radius: 4px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        
+        .tech-skill-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+        
+        .tech-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+        
+        .tech-feature {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+        
+        .tech-resources {
+            margin-top: 15px;
+        }
+        
+        .resource-link {
+            display: inline-block;
+            background: rgba(103, 126, 234, 0.2);
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin: 5px 5px 5px 0;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .resource-link:hover {
+            background: rgba(103, 126, 234, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .tech-career-paths {
+            margin-top: 15px;
+        }
+        
+        .career-path {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .career-path:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .career-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .career-description {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .tech-salary-info {
+            margin-top: 15px;
+        }
+        
+        .tech-salary {
+            background: rgba(103, 126, 234, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 5px;
+            font-size: 0.9rem;
+            color: #4fd1c5;
+            font-weight: bold;
+        }
+        
+        /* Learning Path Section */
+        .learning-path-section {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto 50px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            color: white;
+            z-index: 10;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        
+        .learning-path-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+            color: white;
+        }
+        
+        .learning-path {
+            display: flex;
+            position: relative;
+            margin: 40px 0;
+        }
+        
+        .path-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 20px;
+            width: 4px;
+            background: linear-gradient(to bottom, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+        
+        .learning-steps {
+            width: 100%;
+        }
+        
+        .learning-step {
+            position: relative;
+            padding-left: 60px;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .learning-step.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .step-number {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            z-index: 2;
+        }
+        
+        .step-content {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .step-content:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
+        
+        body.light-mode .step-content:hover {
+            background: rgba(255, 255, 255, 0.95);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .step-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .step-title i {
+            margin-right: 10px;
+            color: #667eea;
+        }
+        
+        .step-description {
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .step-techs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .step-tech {
+            background: rgba(103, 126, 234, 0.2);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .step-tech i {
+            margin-right: 5px;
+        }
+        
+        /* Scroll to Top Button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000;
+        }
+        
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .scroll-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Footer Styles */
+        .footer {
+            background: var(--panel-bg);
+            color: var(--text-color);
+            padding: 40px 0 20px;
+            position: relative;
+            z-index: 10;
+            border-top: 1px solid var(--border-color);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .footer.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 0 20px;
+            gap: 30px;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--primary-gradient);
+            border-radius: 2px;
+        }
+        
+        .footer-text {
+            line-height: 1.6;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-link {
+            display: block;
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 5px 0;
+            transition: all 0.3s ease;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        
+        body.light-mode .footer-link {
+            color: #333;
+        }
+        
+        body.light-mode .scroll-to-top {
+            background: rgba(0, 0, 0, 0.1);
+            color: #333;
+        }
+        
+        body.light-mode .scroll-to-top:hover {
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        .footer-link:hover {
+            opacity: 1;
+            transform: translateX(5px);
+        }
+        
+        .footer-link i {
+            margin-right: 8px;
+            color: var(--highlight-color);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--panel-hover);
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+        
+        .social-link:hover {
+            transform: translateY(-5px);
+            background: var(--primary-gradient);
+            color: white;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 30px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .constellation-container {
+                width: 100%;
+                height: 400px;
+                transform: scale(0.8);
+            }
+            
+            .tech-controls {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .search-box {
+                width: 90%;
+            }
+            
+            .filter-buttons {
+                margin-left: 0;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .tech-info {
+                width: 90%;
+                bottom: 20px;
+            }
+            
+            .learning-step {
+                padding-left: 50px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .footer-section {
+                width: 100%;
+            }
+        }
+        
+        /* Animation for particles */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">DS & AI Program</a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="curriculum-timeline.html" class="nav-link">Curriculum</a></li>
+                <li><a href="ai-infographic.html" class="nav-link">AI in Action</a></li>
+                <li><a href="tech-stack.html" class="nav-link active">Tech Stack</a></li>
+                <li>
+                    <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <section class="tech-constellation">
+        <div class="page-header">
+            <h1 class="page-title">Tech Arsenal</h1>
+            <p class="page-subtitle">Explore the constellation of technologies powering modern data science and AI solutions.</p>
+        </div>
+        
+        <!-- Search and Filter Controls -->
+        <div class="tech-controls">
+            <div style="position: relative;">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-box" id="techSearch" placeholder="Search technologies...">
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all"><i class="fas fa-globe"></i> All</button>
+                <button class="filter-btn" data-filter="language"><i class="fas fa-code"></i> Languages</button>
+                <button class="filter-btn" data-filter="ml"><i class="fas fa-brain"></i> ML/AI</button>
+                <button class="filter-btn" data-filter="data"><i class="fas fa-database"></i> Data Tools</button>
+                <button class="filter-btn" data-filter="cloud"><i class="fas fa-cloud"></i> Cloud/DevOps</button>
+            </div>
+        </div>
+        
+        <div class="constellation-container" id="constellationContainer">
+            <!-- Particles for background animation -->
+            <div class="particles" id="particles"></div>
+            
+            <div class="tech-node python" data-tech="python" data-category="language">
+                <div class="tech-icon"><i class="fab fa-python"></i></div>
+                <div class="skill-level skill-level-5"></div>
+            </div>
+            <div class="tech-node tensorflow" data-tech="tensorflow" data-category="ml">
+                <div class="tech-icon"><i class="fas fa-brain"></i></div>
+                <div class="skill-level skill-level-4"></div>
+            </div>
+            <div class="tech-node pytorch" data-tech="pytorch" data-category="ml">
+                <div class="tech-icon"><i class="fas fa-fire"></i></div>
+                <div class="skill-level skill-level-3"></div>
+            </div>
+            <div class="tech-node jupyter" data-tech="jupyter" data-category="data">
+                <div class="tech-icon"><i class="fas fa-book-open"></i></div>
+                <div class="skill-level skill-level-5"></div>
+            </div>
+            <div class="tech-node pandas" data-tech="pandas" data-category="data">
+                <div class="tech-icon"><i class="fas fa-table"></i></div>
+                <div class="skill-level skill-level-4"></div>
+            </div>
+            <div class="tech-node scikit" data-tech="scikit" data-category="ml">
+                <div class="tech-icon"><i class="fas fa-cogs"></i></div>
+                <div class="skill-level skill-level-4"></div>
+            </div>
+            <div class="tech-node docker" data-tech="docker" data-category="cloud">
+                <div class="tech-icon"><i class="fab fa-docker"></i></div>
+                <div class="skill-level skill-level-3"></div>
+            </div>
+            <div class="tech-node aws" data-tech="aws" data-category="cloud">
+                <div class="tech-icon"><i class="fab fa-aws"></i></div>
+                <div class="skill-level skill-level-3"></div>
+            </div>
+            <div class="tech-node javascript" data-tech="javascript" data-category="language">
+                <div class="tech-icon"><i class="fab fa-js"></i></div>
+                <div class="skill-level skill-level-4"></div>
+            </div>
+            <div class="tech-node react" data-tech="react" data-category="language">
+                <div class="tech-icon"><i class="fab fa-react"></i></div>
+                <div class="skill-level skill-level-3"></div>
+            </div>
+            <div class="tech-node r" data-tech="r" data-category="language">
+                <div class="tech-icon"><i class="fab fa-r-project"></i></div>
+                <div class="skill-level skill-level-3"></div>
+            </div>
+            <div class="tech-node sql" data-tech="sql" data-category="data">
+                <div class="tech-icon"><i class="fas fa-database"></i></div>
+                <div class="skill-level skill-level-4"></div>
+            </div>
+            <div class="tech-node spark" data-tech="spark" data-category="data">
+                <div class="tech-icon"><i class="fas fa-bolt"></i></div>
+                <div class="skill-level skill-level-3"></div>
+            </div>
+            <div class="tech-node keras" data-tech="keras" data-category="ml">
+                <div class="tech-icon"><i class="fas fa-network-wired"></i></div>
+                <div class="skill-level skill-level-4"></div>
+            </div>
+            <div class="tech-node gcp" data-tech="gcp" data-category="cloud">
+                <div class="tech-icon"><i class="fab fa-google"></i></div>
+                <div class="skill-level skill-level-3"></div>
+            </div>
+            <div class="tech-node azure" data-tech="azure" data-category="cloud">
+                <div class="tech-icon"><i class="fab fa-microsoft"></i></div>
+                <div class="skill-level skill-level-3"></div>
+            </div>
+            
+            <!-- Connection Lines -->
+            <div class="connection-line" id="python-tensorflow"></div>
+            <div class="connection-line" id="python-pytorch"></div>
+            <div class="connection-line" id="python-pandas"></div>
+            <div class="connection-line" id="python-jupyter"></div>
+            <div class="connection-line" id="python-docker"></div>
+            <div class="connection-line" id="jupyter-docker"></div>
+            <div class="connection-line" id="tensorflow-pytorch"></div>
+            <div class="connection-line" id="tensorflow-keras"></div>
+            <div class="connection-line" id="pandas-scikit"></div>
+            <div class="connection-line" id="docker-aws"></div>
+            <div class="connection-line" id="aws-gcp"></div>
+            <div class="connection-line" id="aws-azure"></div>
+            <div class="connection-line" id="python-r"></div>
+            <div class="connection-line" id="pandas-sql"></div>
+            <div class="connection-line" id="pandas-spark"></div>
+            <div class="connection-line" id="javascript-react"></div>
+            <div class="connection-line" id="python-javascript"></div>
+        </div>
+        
+        <!-- Enhanced Tech Info Panel -->
+        <div class="tech-info" id="techInfo">
+            <div class="tech-info-header">
+                <div class="tech-info-icon" id="techIcon"></div>
+                <h3 class="tech-info-title" id="techTitle">Select a Technology</h3>
+            </div>
+            
+            <div class="tech-info-content">
+                <p class="tech-info-description" id="techDescription">Hover over a technology node to learn more about it.</p>
+                
+                <div>
+                    <p>Skill Level:</p>
+                    <div class="tech-skill-meter">
+                        <div class="tech-skill-fill" id="techSkillFill" style="width: 0%"></div>
+                    </div>
+                </div>
+                
+                <div class="tech-features" id="techFeatures">
+                    <!-- Features will be added dynamically -->
+                </div>
+                
+                <div class="tech-resources">
+                    <p>Learning Resources:</p>
+                    <div id="techResources">
+                        <!-- Resources will be added dynamically -->
+                    </div>
+                </div>
+                
+                <div class="tech-career-paths">
+                    <p>Career Paths:</p>
+                    <div id="techCareers">
+                        <!-- Career paths will be added dynamically -->
+                    </div>
+                </div>
+                
+                <div class="tech-salary-info">
+                    <p>Salary Range:</p>
+                    <div id="techSalary" class="tech-salary">
+                        <!-- Salary information will be added dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Learning Path Section -->
+    <section class="learning-path-section">
+        <h2 class="section-title">Recommended Learning Path</h2>
+        
+        <div class="learning-path">
+            <div class="path-line"></div>
+            <div class="learning-steps">
+                <div class="learning-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3 class="step-title"><i class="fas fa-code"></i>Foundations</h3>
+                        <p class="step-description">Start with Python programming fundamentals and data manipulation basics. Learn how to work with data structures, functions, and basic algorithms.</p>
+                        <div class="step-techs">
+                            <div class="step-tech"><i class="fab fa-python"></i>Python</div>
+                            <div class="step-tech"><i class="fas fa-book-open"></i>Jupyter</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="learning-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3 class="step-title"><i class="fas fa-table"></i>Data Analysis</h3>
+                        <p class="step-description">Master data manipulation, cleaning, and visualization. Learn to extract insights from datasets and prepare data for machine learning.</p>
+                        <div class="step-techs">
+                            <div class="step-tech"><i class="fas fa-table"></i>Pandas</div>
+                            <div class="step-tech"><i class="fas fa-chart-bar"></i>Matplotlib</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="learning-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3 class="step-title"><i class="fas fa-cogs"></i>Machine Learning</h3>
+                        <p class="step-description">Learn the fundamentals of machine learning algorithms, model training, evaluation, and deployment. Start with classical ML before moving to deep learning.</p>
+                        <div class="step-techs">
+                            <div class="step-tech"><i class="fas fa-cogs"></i>Scikit-Learn</div>
+                            <div class="step-tech"><i class="fas fa-brain"></i>TensorFlow</div>
+                            <div class="step-tech"><i class="fas fa-fire"></i>PyTorch</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="learning-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3 class="step-title"><i class="fas fa-cloud"></i>Deployment & Scale</h3>
+                        <p class="step-description">Learn how to deploy models to production, scale your solutions, and build end-to-end data science pipelines.</p>
+                        <div class="step-techs">
+                            <div class="step-tech"><i class="fab fa-docker"></i>Docker</div>
+                            <div class="step-tech"><i class="fab fa-aws"></i>AWS</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+     <script>
+        // Enhanced Tech data with more details
+        const techData = {
+            python: {
+                title: "Python",
+                description: "A versatile programming language widely used in data science, machine learning, and AI development.",
+                icon: "<i class='fab fa-python'></i>",
+                skillLevel: 5,
+                category: "language",
+                features: ["Easy to learn", "Extensive libraries", "Great community", "Versatile", "Readable syntax"],
+                resources: [
+                    { name: "Official Docs", url: "https://docs.python.org/" },
+                    { name: "W3Schools", url: "https://www.w3schools.com/python/" },
+                    { name: "Real Python", url: "https://realpython.com/" }
+                ],
+                careers: [
+                    { title: "Python Developer", description: "Build applications and systems using Python", salary: "$70,000 - $120,000" },
+                    { title: "Data Scientist", description: "Analyze and interpret complex data", salary: "$90,000 - $150,000" },
+                    { title: "ML Engineer", description: "Develop machine learning models and systems", salary: "$100,000 - $160,000" }
+                ],
+                relatedTech: ["tensorflow", "pytorch", "pandas", "jupyter", "javascript", "r"]
+            },
+            tensorflow: {
+                title: "TensorFlow",
+                description: "An open-source machine learning framework developed by Google for building and training neural networks.",
+                icon: "<i class='fas fa-brain'></i>",
+                skillLevel: 4,
+                category: "ml",
+                features: ["Deep learning", "Neural networks", "Computer vision", "NLP", "Production-ready"],
+                resources: [
+                    { name: "TF Docs", url: "https://www.tensorflow.org/learn" },
+                    { name: "TF Tutorials", url: "https://www.tensorflow.org/tutorials" },
+                    { name: "Coursera", url: "https://www.coursera.org/specializations/tensorflow-in-practice" }
+                ],
+                careers: [
+                    { title: "ML Engineer", description: "Build and deploy machine learning models", salary: "$100,000 - $160,000" },
+                    { title: "AI Researcher", description: "Research and develop new AI techniques", salary: "$110,000 - $180,000" }
+                ],
+                relatedTech: ["python", "pytorch", "keras"]
+            },
+            pytorch: {
+                title: "PyTorch",
+                description: "An open-source machine learning library developed by Facebook's AI Research lab for deep learning applications.",
+                icon: "<i class='fas fa-fire'></i>",
+                skillLevel: 3,
+                category: "ml",
+                features: ["Dynamic computation", "Python integration", "Research-friendly", "GPU acceleration"],
+                resources: [
+                    { name: "PyTorch Docs", url: "https://pytorch.org/docs/stable/index.html" },
+                    { name: "PyTorch Tutorials", url: "https://pytorch.org/tutorials/" }
+                ],
+                careers: [
+                    { title: "Deep Learning Engineer", description: "Develop deep learning models and applications", salary: "$100,000 - $160,000" },
+                    { title: "AI Researcher", description: "Research and develop new AI techniques", salary: "$110,000 - $180,000" }
+                ],
+                relatedTech: ["python", "tensorflow"]
+            },
+            jupyter: {
+                title: "Jupyter Notebook",
+                description: "An open-source web application that allows you to create and share documents containing live code, equations, visualizations, and narrative text.",
+                icon: "<i class='fas fa-book-open'></i>",
+                skillLevel: 5,
+                category: "data",
+                features: ["Interactive computing", "Data visualization", "Markdown support", "Code sharing"],
+                resources: [
+                    { name: "Jupyter Docs", url: "https://jupyter.org/documentation" },
+                    { name: "DataCamp", url: "https://www.datacamp.com/tutorial/tutorial-jupyter-notebook" }
+                ],
+                careers: [
+                    { title: "Data Analyst", description: "Analyze and visualize data to extract insights", salary: "$65,000 - $110,000" },
+                    { title: "Data Scientist", description: "Combine code, visualization, and narrative", salary: "$90,000 - $150,000" }
+                ],
+                relatedTech: ["python", "pandas", "docker"]
+            },
+            pandas: {
+                title: "Pandas",
+                description: "A fast, powerful, flexible and easy to use open source data analysis and manipulation tool built on top of Python.",
+                icon: "<i class='fas fa-table'></i>",
+                skillLevel: 4,
+                category: "data",
+                features: ["Data cleaning", "Data manipulation", "Time series", "CSV/Excel support"],
+                resources: [
+                    { name: "Pandas Docs", url: "https://pandas.pydata.org/docs/" },
+                    { name: "10 Minutes to Pandas", url: "https://pandas.pydata.org/docs/user_guide/10min.html" }
+                ],
+                careers: [
+                    { title: "Data Analyst", description: "Clean, transform, and analyze data", salary: "$65,000 - $110,000" },
+                    { title: "Data Engineer", description: "Build data pipelines and infrastructure", salary: "$85,000 - $140,000" }
+                ],
+                relatedTech: ["python", "jupyter", "scikit", "sql", "spark"]
+            },
+            scikit: {
+                title: "Scikit-Learn",
+                description: "A simple and efficient tool for data mining and data analysis built on NumPy, SciPy, and matplotlib.",
+                icon: "<i class='fas fa-cogs'></i>",
+                skillLevel: 4,
+                category: "ml",
+                features: ["Classification", "Regression", "Clustering", "Model selection", "Preprocessing"],
+                resources: [
+                    { name: "Scikit Docs", url: "https://scikit-learn.org/stable/documentation.html" },
+                    { name: "Scikit Tutorials", url: "https://scikit-learn.org/stable/tutorial/index.html" }
+                ],
+                careers: [
+                    { title: "ML Engineer", description: "Build and deploy machine learning models", salary: "$100,000 - $160,000" },
+                    { title: "Data Scientist", description: "Apply ML algorithms to solve business problems", salary: "$90,000 - $150,000" }
+                ],
+                relatedTech: ["python", "pandas"]
+            },
+            docker: {
+                title: "Docker",
+                description: "A platform for developing, shipping, and running applications in containers, ensuring consistency across environments.",
+                icon: "<i class='fab fa-docker'></i>",
+                skillLevel: 3,
+                category: "cloud",
+                features: ["Containerization", "Portability", "Scalability", "Isolation"],
+                resources: [
+                    { name: "Docker Docs", url: "https://docs.docker.com/" },
+                    { name: "Docker Tutorial", url: "https://www.docker.com/101-tutorial" }
+                ],
+                careers: [
+                    { title: "DevOps Engineer", description: "Automate deployment and infrastructure", salary: "$90,000 - $150,000" },
+                    { title: "ML Engineer", description: "Deploy ML models in containers", salary: "$100,000 - $160,000" }
+                ],
+                relatedTech: ["aws", "python", "jupyter"]
+            },
+            aws: {
+                title: "AWS",
+                description: "Amazon Web Services provides on-demand cloud computing platforms and APIs to individuals, companies, and governments.",
+                icon: "<i class='fab fa-aws'></i>",
+                skillLevel: 3,
+                category: "cloud",
+                features: ["Cloud computing", "Scalability", "ML services", "Storage solutions", "Global infrastructure"],
+                resources: [
+                    { name: "AWS Docs", url: "https://docs.aws.amazon.com/" },
+                    { name: "AWS Training", url: "https://aws.amazon.com/training/" }
+                ],
+                careers: [
+                    { title: "Cloud Engineer", description: "Design and implement cloud solutions", salary: "$95,000 - $155,000" },
+                    { title: "ML Ops Engineer", description: "Deploy and manage ML systems in the cloud", salary: "$100,000 - $165,000" }
+                ],
+                relatedTech: ["docker", "gcp", "azure"]
+            },
+            javascript: {
+                title: "JavaScript",
+                description: "A versatile programming language primarily used for web development, but also increasingly used in data visualization and machine learning applications.",
+                icon: "<i class='fab fa-js'></i>",
+                skillLevel: 4,
+                category: "language",
+                features: ["Web development", "Interactive visualizations", "Front-end frameworks", "Node.js backend", "TensorFlow.js"],
+                resources: [
+                    { name: "MDN Web Docs", url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript" },
+                    { name: "JavaScript.info", url: "https://javascript.info/" },
+                    { name: "W3Schools", url: "https://www.w3schools.com/js/" }
+                ],
+                careers: [
+                    { title: "Front-End Developer", description: "Build user interfaces and interactive web applications", salary: "$70,000 - $130,000" },
+                    { title: "Full-Stack Developer", description: "Develop both client and server software", salary: "$80,000 - $140,000" },
+                    { title: "Data Visualization Engineer", description: "Create interactive data visualizations", salary: "$85,000 - $145,000" }
+                ],
+                relatedTech: ["python", "react"]
+            },
+            react: {
+                title: "React",
+                description: "A JavaScript library for building user interfaces, particularly single-page applications where you need a responsive UI.",
+                icon: "<i class='fab fa-react'></i>",
+                skillLevel: 3,
+                category: "language",
+                features: ["Component-based", "Virtual DOM", "JSX syntax", "Unidirectional data flow", "Rich ecosystem"],
+                resources: [
+                    { name: "React Docs", url: "https://reactjs.org/docs/getting-started.html" },
+                    { name: "React Tutorial", url: "https://reactjs.org/tutorial/tutorial.html" },
+                    { name: "React for Data Visualization", url: "https://www.reactfordataviz.com/" }
+                ],
+                careers: [
+                    { title: "Front-End Developer", description: "Build user interfaces with React", salary: "$75,000 - $135,000" },
+                    { title: "UI/UX Developer", description: "Create user experiences with React", salary: "$80,000 - $140,000" }
+                ],
+                relatedTech: ["javascript"]
+            },
+            r: {
+                title: "R",
+                description: "A programming language and free software environment for statistical computing and graphics supported by the R Foundation.",
+                icon: "<i class='fab fa-r-project'></i>",
+                skillLevel: 3,
+                category: "language",
+                features: ["Statistical analysis", "Data visualization", "Extensive packages", "Reproducible research", "Shiny apps"],
+                resources: [
+                    { name: "R Project", url: "https://www.r-project.org/" },
+                    { name: "R-bloggers", url: "https://www.r-bloggers.com/" },
+                    { name: "DataCamp R", url: "https://www.datacamp.com/courses/free-introduction-to-r" }
+                ],
+                careers: [
+                    { title: "Data Analyst", description: "Analyze data using R", salary: "$65,000 - $110,000" },
+                    { title: "Statistician", description: "Apply statistical methods using R", salary: "$75,000 - $130,000" },
+                    { title: "Quantitative Analyst", description: "Apply mathematical models to financial data", salary: "$90,000 - $160,000" }
+                ],
+                relatedTech: ["python"]
+            },
+            sql: {
+                title: "SQL",
+                description: "Structured Query Language is a domain-specific language used for managing and manipulating relational databases.",
+                icon: "<i class='fas fa-database'></i>",
+                skillLevel: 4,
+                category: "data",
+                features: ["Data querying", "Data manipulation", "Database design", "Joins and relationships", "Aggregations"],
+                resources: [
+                    { name: "W3Schools SQL", url: "https://www.w3schools.com/sql/" },
+                    { name: "SQLZoo", url: "https://sqlzoo.net/" },
+                    { name: "Mode Analytics", url: "https://mode.com/sql-tutorial/" }
+                ],
+                careers: [
+                    { title: "Database Administrator", description: "Manage and optimize databases", salary: "$75,000 - $130,000" },
+                    { title: "Data Analyst", description: "Query and analyze data", salary: "$65,000 - $110,000" },
+                    { title: "Data Engineer", description: "Build data pipelines and infrastructure", salary: "$85,000 - $140,000" }
+                ],
+                relatedTech: ["pandas"]
+            },
+            spark: {
+                title: "Apache Spark",
+                description: "An open-source unified analytics engine for large-scale data processing, with built-in modules for streaming, SQL, machine learning and graph processing.",
+                icon: "<i class='fas fa-bolt'></i>",
+                skillLevel: 3,
+                category: "data",
+                features: ["Big data processing", "In-memory computing", "Batch processing", "Stream processing", "MLlib"],
+                resources: [
+                    { name: "Spark Docs", url: "https://spark.apache.org/docs/latest/" },
+                    { name: "Databricks", url: "https://databricks.com/spark/getting-started-with-apache-spark" },
+                    { name: "Spark by Examples", url: "https://sparkbyexamples.com/" }
+                ],
+                careers: [
+                    { title: "Big Data Engineer", description: "Process and analyze large datasets", salary: "$90,000 - $150,000" },
+                    { title: "Data Engineer", description: "Build data pipelines with Spark", salary: "$85,000 - $140,000" },
+                    { title: "ML Engineer", description: "Implement ML at scale with Spark", salary: "$100,000 - $160,000" }
+                ],
+                relatedTech: ["pandas"]
+            },
+            keras: {
+                title: "Keras",
+                description: "An open-source software library that provides a Python interface for artificial neural networks. Keras acts as an interface for the TensorFlow library.",
+                icon: "<i class='fas fa-network-wired'></i>",
+                skillLevel: 4,
+                category: "ml",
+                features: ["User-friendly API", "Deep learning", "Multi-backend", "Fast prototyping", "Production-ready"],
+                resources: [
+                    { name: "Keras Docs", url: "https://keras.io/" },
+                    { name: "Keras Guide", url: "https://keras.io/guides/" },
+                    { name: "Deep Learning with Python", url: "https://www.manning.com/books/deep-learning-with-python" }
+                ],
+                careers: [
+                    { title: "Deep Learning Engineer", description: "Build neural networks with Keras", salary: "$100,000 - $160,000" },
+                    { title: "AI Researcher", description: "Research and develop new AI techniques", salary: "$110,000 - $180,000" }
+                ],
+                relatedTech: ["tensorflow"]
+            },
+            gcp: {
+                title: "Google Cloud Platform",
+                description: "A suite of cloud computing services that runs on the same infrastructure that Google uses internally for its end-user products.",
+                icon: "<i class='fab fa-google'></i>",
+                skillLevel: 3,
+                category: "cloud",
+                features: ["Cloud computing", "BigQuery", "AI Platform", "Cloud Storage", "Kubernetes Engine"],
+                resources: [
+                    { name: "GCP Docs", url: "https://cloud.google.com/docs" },
+                    { name: "GCP Training", url: "https://cloud.google.com/training" },
+                    { name: "Qwiklabs", url: "https://www.qwiklabs.com/" }
+                ],
+                careers: [
+                    { title: "Cloud Engineer", description: "Design and implement cloud solutions", salary: "$95,000 - $155,000" },
+                    { title: "ML Engineer", description: "Deploy ML models on GCP", salary: "$100,000 - $160,000" },
+                    { title: "Data Engineer", description: "Build data pipelines on GCP", salary: "$85,000 - $140,000" }
+                ],
+                relatedTech: ["aws"]
+            },
+            azure: {
+                title: "Microsoft Azure",
+                description: "A cloud computing service created by Microsoft for building, testing, deploying, and managing applications and services through Microsoft-managed data centers.",
+                icon: "<i class='fab fa-microsoft'></i>",
+                skillLevel: 3,
+                category: "cloud",
+                features: ["Cloud computing", "Azure ML", "Azure Data Factory", "Azure Databricks", "Cognitive Services"],
+                resources: [
+                    { name: "Azure Docs", url: "https://docs.microsoft.com/en-us/azure/" },
+                    { name: "Azure Learn", url: "https://docs.microsoft.com/en-us/learn/azure/" },
+                    { name: "Azure for Data Scientists", url: "https://azure.microsoft.com/en-us/overview/ai-platform/data-scientist-resources/" }
+                ],
+                careers: [
+                    { title: "Cloud Solutions Architect", description: "Design and implement Azure solutions", salary: "$100,000 - $160,000" },
+                    { title: "Azure Data Engineer", description: "Build data solutions on Azure", salary: "$90,000 - $150,000" },
+                    { title: "ML Engineer", description: "Deploy ML models on Azure", salary: "$100,000 - $160,000" }
+                ],
+                relatedTech: ["aws"]
+            }
+        };
+        
+        // DOM Elements
+        const techNodes = document.querySelectorAll('.tech-node');
+        const techInfo = document.getElementById('techInfo');
+        const techTitle = document.getElementById('techTitle');
+        const techDescription = document.getElementById('techDescription');
+        const techIcon = document.getElementById('techIcon');
+        const techSkillFill = document.getElementById('techSkillFill');
+        const techFeatures = document.getElementById('techFeatures');
+        const techResources = document.getElementById('techResources');
+        const techCareers = document.getElementById('techCareers');
+        const techSalary = document.getElementById('techSalary');
+        const searchBox = document.getElementById('techSearch');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const connectionLines = document.querySelectorAll('.connection-line');
+        const constellationContainer = document.getElementById('constellationContainer');
+        const particlesContainer = document.getElementById('particles');
+        
+        // Create particles for background animation
+        function createParticles() {
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+                particle.style.width = `${Math.random() * 3 + 1}px`;
+                particle.style.height = `${Math.random() * 3 + 1}px`;
+                
+                // Add animation
+                particle.style.animation = `particleFloat ${Math.random() * 15 + 10}s linear infinite`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Handle tech node click and hover
+        let activeTech = null;
+        
+        techNodes.forEach(node => {
+            node.addEventListener('mouseenter', () => {
+                const tech = node.getAttribute('data-tech');
+                updateTechInfo(tech);
+                techInfo.classList.add('active');
+                
+                // Highlight related connections
+                highlightConnections(tech);
+            });
+            
+            node.addEventListener('mouseleave', () => {
+                if (!activeTech) {
+                    techInfo.classList.remove('active');
+                    resetConnections();
+                }
+            });
+            
+            node.addEventListener('click', () => {
+                const tech = node.getAttribute('data-tech');
+                
+                // Toggle active state
+                if (activeTech === tech) {
+                    activeTech = null;
+                    techNodes.forEach(n => n.classList.remove('active'));
+                    techInfo.classList.remove('active');
+                    resetConnections();
+                } else {
+                    activeTech = tech;
+                    techNodes.forEach(n => {
+                        if (n.getAttribute('data-tech') === tech) {
+                            n.classList.add('active');
+                        } else {
+                            n.classList.remove('active');
+                        }
+                    });
+                    updateTechInfo(tech);
+                    techInfo.classList.add('active');
+                    highlightConnections(tech);
+                }
+            });
+        });
+        
+        // Update tech info panel with detailed information
+        function updateTechInfo(tech) {
+            const data = techData[tech];
+            
+            techTitle.textContent = data.title;
+            techDescription.textContent = data.description;
+            techIcon.innerHTML = data.icon;
+            techIcon.className = 'tech-info-icon ' + tech;
+            techSkillFill.style.width = `${data.skillLevel * 20}%`;
+            
+            // Update features
+            techFeatures.innerHTML = '';
+            data.features.forEach(feature => {
+                const featureEl = document.createElement('div');
+                featureEl.className = 'tech-feature';
+                featureEl.textContent = feature;
+                techFeatures.appendChild(featureEl);
+            });
+            
+            // Update resources
+            techResources.innerHTML = '';
+            data.resources.forEach(resource => {
+                const resourceEl = document.createElement('a');
+                resourceEl.className = 'resource-link';
+                resourceEl.href = resource.url;
+                resourceEl.textContent = resource.name;
+                resourceEl.target = '_blank';
+                techResources.appendChild(resourceEl);
+            });
+            
+            // Update career paths
+            techCareers.innerHTML = '';
+            techSalary.innerHTML = '';
+            
+            // Display all salary ranges in the salary section
+            const salaryRanges = data.careers.map(career => career.salary);
+            const uniqueSalaries = [...new Set(salaryRanges)];
+            
+            uniqueSalaries.forEach(salary => {
+                const salaryEl = document.createElement('div');
+                salaryEl.textContent = salary;
+                techSalary.appendChild(salaryEl);
+            });
+            
+            data.careers.forEach(career => {
+                const careerEl = document.createElement('div');
+                careerEl.className = 'career-path';
+                
+                const titleEl = document.createElement('div');
+                titleEl.className = 'career-title';
+                titleEl.textContent = career.title;
+                
+                const descEl = document.createElement('div');
+                descEl.className = 'career-description';
+                descEl.textContent = career.description;
+                
+                careerEl.appendChild(titleEl);
+                careerEl.appendChild(descEl);
+                techCareers.appendChild(careerEl);
+            });
+        }
+        
+        // Highlight connections for a specific tech
+        function highlightConnections(tech) {
+            const relatedTech = techData[tech].relatedTech;
+            
+            connectionLines.forEach(line => {
+                const id = line.id;
+                const [start, end] = id.split('-');
+                
+                if (start === tech || end === tech) {
+                    line.classList.add('active');
+                } else {
+                    line.classList.remove('active');
+                }
+            });
+        }
+        
+        // Reset all connections
+        function resetConnections() {
+            connectionLines.forEach(line => {
+                line.classList.remove('active');
+            });
+        }
+        
+        // Search functionality
+        searchBox.addEventListener('input', () => {
+            const searchTerm = searchBox.value.toLowerCase();
+            
+            techNodes.forEach(node => {
+                const tech = node.getAttribute('data-tech');
+                const data = techData[tech];
+                
+                // Search in title, description, and features
+                const matchesTitle = data.title.toLowerCase().includes(searchTerm);
+                const matchesDesc = data.description.toLowerCase().includes(searchTerm);
+                const matchesFeatures = data.features.some(feature => 
+                    feature.toLowerCase().includes(searchTerm)
+                );
+                
+                if (matchesTitle || matchesDesc || matchesFeatures) {
+                    node.style.display = 'flex';
+                } else {
+                    node.style.display = 'none';
+                }
+            });
+        });
+        
+        // Filter functionality
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active button
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                const filter = button.getAttribute('data-filter');
+                
+                techNodes.forEach(node => {
+                    if (filter === 'all' || node.getAttribute('data-category') === filter) {
+                        node.style.display = 'flex';
+                    } else {
+                        node.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Calculate and set connection lines
+        function setConnectionLine(id, startNode, endNode) {
+            const line = document.getElementById(id);
+            const start = document.querySelector(`.${startNode}`);
+            const end = document.querySelector(`.${endNode}`);
+            
+            if (!start || !end || !line) return;
+            
+            const startRect = start.getBoundingClientRect();
+            const endRect = end.getBoundingClientRect();
+            
+            const containerRect = constellationContainer.getBoundingClientRect();
+            
+            const startX = startRect.left - containerRect.left + startRect.width / 2;
+            const startY = startRect.top - containerRect.top + startRect.height / 2;
+            const endX = endRect.left - containerRect.left + endRect.width / 2;
+            const endY = endRect.top - containerRect.top + endRect.height / 2;
+            
+            const length = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
+            const angle = Math.atan2(endY - startY, endX - startX) * 180 / Math.PI;
+            
+            line.style.width = `${length}px`;
+            line.style.left = `${startX}px`;
+            line.style.top = `${startY}px`;
+            line.style.transform = `rotate(${angle}deg)`;
+        }
+        
+        // Set connection lines on load and resize
+        function setAllConnections() {
+            setConnectionLine('python-tensorflow', 'python', 'tensorflow');
+            setConnectionLine('python-pytorch', 'python', 'pytorch');
+            setConnectionLine('python-pandas', 'python', 'pandas');
+            setConnectionLine('python-jupyter', 'python', 'jupyter');
+            setConnectionLine('python-javascript', 'python', 'javascript');
+            setConnectionLine('python-r', 'python', 'r');
+            setConnectionLine('python-docker', 'python', 'docker');
+            setConnectionLine('jupyter-docker', 'jupyter', 'docker');
+            setConnectionLine('tensorflow-pytorch', 'tensorflow', 'pytorch');
+            setConnectionLine('tensorflow-keras', 'tensorflow', 'keras');
+            setConnectionLine('pandas-scikit', 'pandas', 'scikit');
+            setConnectionLine('pandas-sql', 'pandas', 'sql');
+            setConnectionLine('pandas-spark', 'pandas', 'spark');
+            setConnectionLine('docker-aws', 'docker', 'aws');
+            setConnectionLine('aws-gcp', 'aws', 'gcp');
+            setConnectionLine('aws-azure', 'aws', 'azure');
+            setConnectionLine('javascript-react', 'javascript', 'react');
+        }
+        
+        // Add keyframe animation for particles
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes particleFloat {
+                0% { transform: translate(0, 0); }
+                50% { transform: translate(${Math.random() * 30 - 15}px, ${Math.random() * 30 - 15}px); }
+                100% { transform: translate(0, 0); }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Dark Mode Toggle Functionality
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+        
+        // Check for saved theme preference or use preferred color scheme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            body.classList.toggle('light-mode', savedTheme === 'light');
+            updateDarkModeIcon(savedTheme === 'light');
+        } else {
+            // Check if user prefers light mode
+            const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            body.classList.toggle('light-mode', !prefersDarkMode);
+            updateDarkModeIcon(!prefersDarkMode);
+        }
+        
+        // Toggle dark/light mode
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            const isLightMode = body.classList.contains('light-mode');
+            
+            // Save preference to localStorage
+            localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
+            
+            // Update icon
+            updateDarkModeIcon(isLightMode);
+        });
+        
+        function updateDarkModeIcon(isLightMode) {
+            darkModeToggle.innerHTML = isLightMode ? 
+                '<i class="fas fa-moon"></i>' : 
+                '<i class="fas fa-sun"></i>';
+        }
+        
+        // Initialize
+        window.addEventListener('load', () => {
+            setAllConnections();
+            createParticles();
+            initFadeInAnimation();
+            initLearningPathAnimation();
+            initFooterAnimation();
+        });
+        window.addEventListener('resize', setAllConnections);
+        
+        // Animate footer when scrolled into view
+        function initFooterAnimation() {
+            const footer = document.querySelector('.footer');
+            
+            const footerObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        footerObserver.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.2
+            });
+            
+            if (footer) {
+                footerObserver.observe(footer);
+            }
+        }
+        
+        // Animate learning path section when scrolled into view
+        function initLearningPathAnimation() {
+            const learningPathSection = document.querySelector('.learning-path-section');
+            const learningSteps = document.querySelectorAll('.learning-step');
+            
+            // Animate the learning path section
+            const learningPathObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        learningPathObserver.unobserve(entry.target);
+                        
+                        // Animate learning steps with staggered delay
+                        learningSteps.forEach((step, index) => {
+                            setTimeout(() => {
+                                step.classList.add('visible');
+                            }, 300 + (index * 150)); // Staggered delay
+                        });
+                    }
+                });
+            }, {
+                threshold: 0.2
+            });
+            
+            if (learningPathSection) {
+                learningPathObserver.observe(learningPathSection);
+            }
+        }
+        
+        // Fade-in animation for tech nodes using Intersection Observer
+        function initFadeInAnimation() {
+            const techNodes = document.querySelectorAll('.tech-node');
+            
+            const fadeInOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+            
+            const fadeInObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                        observer.unobserve(entry.target); // Stop observing once it's faded in
+                    }
+                });
+            }, fadeInOptions);
+            
+            techNodes.forEach(node => {
+                fadeInObserver.observe(node);
+            });
+        }
+        
+        // Scroll to top functionality
+        const scrollToTopBtn = document.getElementById('scroll-to-top');
+        
+        // Show/hide button based on scroll position
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
+        });
+        
+        // Scroll to top when button is clicked
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+    
+    <!-- Scroll to Top Button -->
+    <button id="scroll-to-top" class="scroll-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 class="footer-title">About Tech Arsenal</h3>
+                <p class="footer-text">A visual exploration of the technologies powering modern data science and AI solutions. Discover connections, career paths, and learning resources.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="footer-title">Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html" class="footer-link"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="tech-stack.html" class="footer-link"><i class="fas fa-layer-group"></i> Tech Stack</a></li>
+                    <li><a href="curriculum-timeline.html" class="footer-link"><i class="fas fa-graduation-cap"></i> Curriculum</a></li>
+                    <li><a href="ai-infographic.html" class="footer-link"><i class="fas fa-brain"></i> AI Infographic</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="footer-title">Connect</h3>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-medium"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2023 Tech Arsenal. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
